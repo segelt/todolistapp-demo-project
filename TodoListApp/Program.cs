@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 string connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
 builder.Services.AddDbContext(connectionString);
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
@@ -75,6 +76,20 @@ app.MapPost("/update-task", (ITodoTaskService taskService, EditTaskRequest editR
         return Results.BadRequest();
     }
 
+});
+
+app.MapGet("/pending-tasks", (ITodoTaskService taskService) =>
+{
+    var todoTasks = taskService.GetPendingTasks();
+
+    return Results.Ok(todoTasks.ToList());
+});
+
+app.MapGet("/overdue-tasks", (ITodoTaskService taskService) =>
+{
+    var todoTasks = taskService.GetOverdueTasks();
+
+    return Results.Ok(todoTasks.ToList());
 });
 
 //app.UseHttpsRedirection();
