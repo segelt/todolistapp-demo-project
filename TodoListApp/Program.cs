@@ -1,4 +1,8 @@
+using TodoListApp.Application.Abstractions.Repo;
+using TodoListApp.Application.Abstractions.Services;
+using TodoListApp.Application.Services;
 using TodoListApp.Infrastructure;
+using TodoListApp.Infrastructure.Data.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +13,9 @@ builder.Services.AddSwaggerGen();
 
 string connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
 builder.Services.AddDbContext(connectionString);
+
+builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
+builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
 
 var app = builder.Build();
 
