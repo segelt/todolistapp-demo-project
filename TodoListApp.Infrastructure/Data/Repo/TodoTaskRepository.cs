@@ -47,7 +47,7 @@ namespace TodoListApp.Infrastructure.Data.Repo
             _dbContext.SaveChanges();
         }
 
-        public void Update(TodoTask model, int id)
+        public void Update(int id, string title, DateTime? dueDate, bool? isCompleted)
         {
             TodoTask? targetTask = _dbContext.TodoTasks.FirstOrDefault(e => e.Id == id);
 
@@ -56,8 +56,17 @@ namespace TodoListApp.Infrastructure.Data.Repo
                 throw new ArgumentException($"Target task not found for id: {id}.");
             }
 
-            _dbContext.TodoTasks.Attach(model);
-            _dbContext.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            targetTask.Title = title;
+            if(dueDate != null)
+            {
+                targetTask.DueDate = dueDate;
+            }
+
+            if(isCompleted.HasValue)
+            {
+                targetTask.Completed = isCompleted.Value;
+            }
+
             _dbContext.SaveChanges();
         }
     }

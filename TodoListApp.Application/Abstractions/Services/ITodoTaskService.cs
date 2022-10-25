@@ -12,15 +12,15 @@ namespace TodoListApp.Application.Abstractions.Services
 
     public class CreateTodoTaskRequest
     {
-        string Title;
-        DateTime? DueDate;
+        public string Title;
+        public DateTime? DueDate;
     }
 
     public class EditTodoTaskRequest
     {
-        int id;
-        string Title;
-        DateTime? DueDate;
-        bool? IsCompleted;
+        public int id;
+        public string Title;
+        public DateTime? DueDate;
+        public bool? IsCompleted;
     }
 }
