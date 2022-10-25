@@ -1,6 +1,6 @@
 ﻿using TodoListApp.Domain;
 
-namespace TodoListApp.Application.Interfaces.Services
+namespace TodoListApp.Application.Abstractions.Services
 {
     public interface ITodoTaskService
     {
