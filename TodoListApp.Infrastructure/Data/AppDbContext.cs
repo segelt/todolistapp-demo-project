@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using TodoListApp.Domain;
 
 namespace TodoListApp.Infrastructure.Data
 {
@@ -8,7 +9,7 @@ namespace TodoListApp.Infrastructure.Data
         public AppDbContext() { }
         public AppDbContext(DbContextOptions opts) : base(opts) { }
 
-        public DbSet<Task> Tasks { get; set; }
+        public DbSet<TodoTask> TodoTasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
