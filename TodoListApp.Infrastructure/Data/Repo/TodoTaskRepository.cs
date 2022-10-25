@@ -13,10 +13,12 @@ namespace TodoListApp.Infrastructure.Data.Repo
             _dbContext = dbContext;
         }
 
-        public void Add(TodoTask entity)
+        public int Add(TodoTask entity)
         {
             _dbContext.TodoTasks.Add(entity);
             _dbContext.SaveChanges();
+
+            return entity.Id;
         }
 
         public IEnumerable<TodoTask> Get()

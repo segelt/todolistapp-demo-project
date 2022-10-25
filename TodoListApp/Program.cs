@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc;
+using TodoListApp.ApiModels;
 using TodoListApp.Application.Abstractions.Repo;
 using TodoListApp.Application.Abstractions.Services;
 using TodoListApp.Application.Services;
@@ -10,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//builder.Services.AddHttpContextAccessor();
 
 string connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
 builder.Services.AddDbContext(connectionString);
@@ -26,5 +29,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+app.MapPost("/create-task", (ITodoTaskService taskService, CreateTaskRequest req) =>
+{
+    CreateTodoTaskRequest createRequest = new CreateTodoTaskRequest
+    {
+        DueDate = req.DueDate,
+        Title = req.Title
+    };
+
+    int? resultId = taskService.CreateTodoTask(createRequest);
+
+    if (resultId.HasValue)
+    {
+        return Results.Ok(resultId.Value);
+    }
+    else
+    {
+        return Results.BadRequest();
+    }
+});
+
+//app.UseHttpsRedirection();
 app.Run();

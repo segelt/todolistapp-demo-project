@@ -13,7 +13,7 @@ namespace TodoListApp.Application.Services
             _TodoRepository = todoRepository;
         }
 
-        public bool CreateTodoTask(CreateTodoTaskRequest createRequest)
+        public int? CreateTodoTask(CreateTodoTaskRequest createRequest)
         {
             TodoTask targetTask = new TodoTask
             {
@@ -24,12 +24,12 @@ namespace TodoListApp.Application.Services
             try
             {
                 _TodoRepository.Add(targetTask);
-                return true;
+                return targetTask.Id;
             }
             catch (Exception)
             {
                 // TODO: Log the exception
-                return false;
+                return null;
             }
         }
 

@@ -4,7 +4,7 @@ namespace TodoListApp.Application.Abstractions.Services
 {
     public interface ITodoTaskService
     {
-        bool CreateTodoTask(CreateTodoTaskRequest createRequest);
+        int? CreateTodoTask(CreateTodoTaskRequest createRequest);
         bool EditTask(EditTodoTaskRequest editRequest);
         IEnumerable<TodoTask> GetPendingTasks();
         IEnumerable<TodoTask> GetOverdueTasks();
@@ -12,15 +12,15 @@ namespace TodoListApp.Application.Abstractions.Services
 
     public class CreateTodoTaskRequest
     {
-        public string Title;
-        public DateTime? DueDate;
+        public string Title { get; set; }
+        public DateTime? DueDate { get; set; }
     }
 
     public class EditTodoTaskRequest
     {
-        public int id;
-        public string Title;
-        public DateTime? DueDate;
-        public bool? IsCompleted;
+        public int id { get; set; }
+        public string Title { get; set; }
+        public DateTime? DueDate { get; set; }
+        public bool? IsCompleted { get; set; }
     }
 }

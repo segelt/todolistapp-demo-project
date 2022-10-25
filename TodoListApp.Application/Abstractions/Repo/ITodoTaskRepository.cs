@@ -11,7 +11,7 @@ namespace TodoListApp.Application.Abstractions.Repo
 
         IEnumerable<TodoTask> GetWhere(Expression<Func<TodoTask, bool>> predicate);
 
-        void Add(TodoTask entity);
+        int Add(TodoTask entity);
 
         void Remove(int id);
 
