@@ -19,7 +19,7 @@ namespace TodoListApp.Application.Abstractions.Services
     public class EditTodoTaskRequest
     {
         public int id { get; set; }
-        public string Title { get; set; }
+        public string? Title { get; set; }
         public DateTime? DueDate { get; set; }
         public bool? IsCompleted { get; set; }
     }

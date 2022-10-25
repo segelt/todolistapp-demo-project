@@ -49,7 +49,7 @@ namespace TodoListApp.Infrastructure.Data.Repo
             _dbContext.SaveChanges();
         }
 
-        public void Update(int id, string title, DateTime? dueDate, bool? isCompleted)
+        public void Update(int id, string? title, DateTime? dueDate, bool? isCompleted)
         {
             TodoTask? targetTask = _dbContext.TodoTasks.FirstOrDefault(e => e.Id == id);
 
@@ -58,7 +58,10 @@ namespace TodoListApp.Infrastructure.Data.Repo
                 throw new ArgumentException($"Target task not found for id: {id}.");
             }
 
-            targetTask.Title = title;
+            if(title != null)
+            {
+                targetTask.Title = title;
+            }
             if(dueDate != null)
             {
                 targetTask.DueDate = dueDate;

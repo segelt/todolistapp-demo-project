@@ -15,6 +15,6 @@ namespace TodoListApp.Application.Abstractions.Repo
 
         void Remove(int id);
 
-        void Update(int id, string title, DateTime? dueDate, bool? isCompleted);
+        void Update(int id, string? title, DateTime? dueDate, bool? isCompleted);
     }
 }

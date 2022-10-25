@@ -49,5 +49,33 @@ app.MapPost("/create-task", (ITodoTaskService taskService, CreateTaskRequest req
     }
 });
 
+app.MapPost("/update-task", (ITodoTaskService taskService, EditTaskRequest editReq) =>
+{
+    if (!editReq.IsValid)
+    {
+        return Results.BadRequest("Invalid input.");
+    }
+
+    EditTodoTaskRequest editTaskRequest = new EditTodoTaskRequest
+    {
+        id = editReq.Id,
+        Title = editReq.Title,
+        DueDate = editReq.DueDate,
+        IsCompleted = editReq.IsCompleted
+    };
+
+    bool success = taskService.EditTask(editTaskRequest);
+
+    if (success)
+    {
+        return Results.Ok();
+    }
+    else
+    {
+        return Results.BadRequest();
+    }
+
+});
+
 //app.UseHttpsRedirection();
 app.Run();

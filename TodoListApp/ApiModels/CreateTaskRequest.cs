@@ -7,7 +7,7 @@ namespace TodoListApp.ApiModels
         [JsonPropertyName("title")]
         public string Title { get; set; }
 
-        [JsonPropertyName("due date")]
+        [JsonPropertyName("dueDate")]
         public DateTime? DueDate { get; set; }
     }
 }
