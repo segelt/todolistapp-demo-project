@@ -1,6 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TodoListApp.Application.Abstractions;
+using TodoListApp.Application.Abstractions.Repo;
+using TodoListApp.Application.Abstractions.Services;
+using TodoListApp.Application.Implementations;
+using TodoListApp.Application.Implementations.Services;
 using TodoListApp.Infrastructure.Data;
+using TodoListApp.Infrastructure.Data.Repo;
 
 namespace TodoListApp.Infrastructure
 {
@@ -23,6 +29,13 @@ namespace TodoListApp.Infrastructure
                 dbContext.Database.Migrate();
             }
             dbContext.Database.EnsureCreated();
+        }
+
+        public static void RegisterDependencies(this IServiceCollection services)
+        {
+            services.AddScoped<ITodoTaskService, TodoTaskService>();
+            services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
+            services.AddTransient<IDateTimeProvider, DateTimeProvider>();
         }
     }
 }

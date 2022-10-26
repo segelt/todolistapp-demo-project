@@ -1,23 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using TodoListApp.ApiModels;
-using TodoListApp.Application.Abstractions;
-using TodoListApp.Application.Abstractions.Repo;
 using TodoListApp.Application.Abstractions.Services;
-using TodoListApp.Application.Implementations;
-using TodoListApp.Application.Implementations.Services;
 using TodoListApp.Infrastructure;
 using TodoListApp.Infrastructure.Data;
-using TodoListApp.Infrastructure.Data.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Services.AddHttpContextAccessor();
 
-//string connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
 var connectionString = Environment.GetEnvironmentVariable("Conn_Str");
 if(connectionString == null)
 {
@@ -26,10 +18,7 @@ if(connectionString == null)
 
 builder.Services.AddDbContext(connectionString);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-
-builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
-builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
-builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
+builder.Services.RegisterDependencies();
 
 var app = builder.Build();
 
