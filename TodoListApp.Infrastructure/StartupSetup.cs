@@ -18,11 +18,11 @@ namespace TodoListApp.Infrastructure
 
         public static void PrepareDatabase(AppDbContext dbContext)
         {
-            dbContext.Database.EnsureCreated();
             if (dbContext.Database.GetPendingMigrations().Any())
             {
                 dbContext.Database.Migrate();
             }
+            dbContext.Database.EnsureCreated();
         }
     }
 }
