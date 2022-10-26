@@ -9,7 +9,7 @@ namespace TodoListApp.Infrastructure.Data
         public AppDbContext() { }
         public AppDbContext(DbContextOptions opts) : base(opts) { }
 
-        public DbSet<TodoTask> TodoTasks { get; set; }
+        public virtual DbSet<TodoTask> TodoTasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
