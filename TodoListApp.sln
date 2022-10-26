@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListApp", "TodoListApp\TodoListApp.csproj", "{E3FE3E4D-4BBB-44E6-9425-CDEC1DE30AE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListApp", "TodoListApp\TodoListApp.csproj", "{E3FE3E4D-4BBB-44E6-9425-CDEC1DE30AE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListApp.Domain", "TodoListApp.Domain\TodoListApp.Domain.csproj", "{24D2720E-4054-4D2C-808A-5941C568E309}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListApp.Domain", "TodoListApp.Domain\TodoListApp.Domain.csproj", "{24D2720E-4054-4D2C-808A-5941C568E309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListApp.Infrastructure", "TodoListApp.Infrastructure\TodoListApp.Infrastructure.csproj", "{0F37C9A1-4FBC-46C0-8558-3EAB364A788A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListApp.Infrastructure", "TodoListApp.Infrastructure\TodoListApp.Infrastructure.csproj", "{0F37C9A1-4FBC-46C0-8558-3EAB364A788A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoListApp.Application", "TodoListApp.Application\TodoListApp.Application.csproj", "{B79BB4EC-812D-4299-8030-7320FDD11F91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoListApp.Application", "TodoListApp.Application\TodoListApp.Application.csproj", "{B79BB4EC-812D-4299-8030-7320FDD11F91}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{281BF83F-4BA9-4AC5-B915-9B73818093FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B79BB4EC-812D-4299-8030-7320FDD11F91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B79BB4EC-812D-4299-8030-7320FDD11F91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B79BB4EC-812D-4299-8030-7320FDD11F91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{281BF83F-4BA9-4AC5-B915-9B73818093FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{281BF83F-4BA9-4AC5-B915-9B73818093FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{281BF83F-4BA9-4AC5-B915-9B73818093FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{281BF83F-4BA9-4AC5-B915-9B73818093FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

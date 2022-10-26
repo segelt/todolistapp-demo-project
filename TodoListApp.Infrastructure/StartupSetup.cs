@@ -15,5 +15,14 @@ namespace TodoListApp.Infrastructure
                 options.UseNpgsql(connectionString);
             }, ServiceLifetime.Transient);
         }
+
+        public static void PrepareDatabase(AppDbContext dbContext)
+        {
+            dbContext.Database.EnsureCreated();
+            if (dbContext.Database.GetPendingMigrations().Any())
+            {
+                dbContext.Database.Migrate();
+            }
+        }
     }
 }

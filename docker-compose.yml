@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  db:
+    image: postgres:14.3
+    ports:
+      - "5400:5432"
+    environment:
+      - POSTGRES_USER=todolistappuser
+      - POSTGRES_PASSWORD=todolistapppwd
+      - POSTGRES_DB=todolistdb
+    container_name: todolist_docker_db
+    volumes:
+      - todolistdbvolume:/var/lib/postgresql/data
+    networks:
+      - globalnetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U todolist_docker_db"]
+      interval: 10s
+      timeout: 25s
+      retries: 5
+
+  todolistapp:
+    image: ${DOCKER_REGISTRY-}todolistapp
+    container_name: "todolistapp_api"
+    build:
+      context: .
+      dockerfile: TodoListApp/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "4500:80"
+    environment:
+      - Conn_Str=Host=todolist_docker_db;Port=5400;Database=todolistdb;Username=todolistappuser;Password=todolistapppwd
+    networks:
+      - globalnetwork
+networks:
+  globalnetwork:
+    name: globalnetwork
+volumes:
+  todolistdbvolume:

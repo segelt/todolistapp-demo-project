@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TodoListApp.ApiModels;
 using TodoListApp.Application.Abstractions.Repo;
 using TodoListApp.Application.Abstractions.Services;
 using TodoListApp.Application.Services;
 using TodoListApp.Infrastructure;
+using TodoListApp.Infrastructure.Data;
 using TodoListApp.Infrastructure.Data.Repo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +15,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //builder.Services.AddHttpContextAccessor();
 
-string connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
+//string connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
+var connectionString = Environment.GetEnvironmentVariable("Conn_Str");
+if(connectionString == null)
+{
+    connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
+}
+
 builder.Services.AddDbContext(connectionString);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -91,6 +98,25 @@ app.MapGet("/overdue-tasks", (ITodoTaskService taskService) =>
 
     return Results.Ok(todoTasks.ToList());
 });
+
+app.Logger.LogInformation("App started...");
+// Database handling..
+
+// Seed Database
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        StartupSetup.PrepareDatabase(context);
+    }
+    catch (Exception ex)
+    {
+        app.Logger.LogError(ex, "An error occurred preparing the DB. {exceptionMessage}", ex.Message);
+    }
+}
 
 //app.UseHttpsRedirection();
 app.Run();
