@@ -52,7 +52,7 @@ Visual Studio. This requires the .NET 6 runtime, which is supported by Visual St
 
 - Deployment using visual studio:
 
-    The application can be built and executed using Visual Studio. There is a build configuration *ToDoListApp* that can be run. A PostgreSql instance needs to be running on the host machine.
+    The startup project is **TodoListApp**. The application can be built and executed using Visual Studio. There is a build configuration *ToDoListApp* that can be run. A PostgreSql instance needs to be running on the host machine.
     A valid connection string should be passed either by setting the "**Conn_Str**" environment variable, or by supplying the connection string on AppSettings file, by setting the **ConnectionStrings.TodoAppDb** key.
     The application can be reached from: http://localhost:5179/swagger/index.html
 
