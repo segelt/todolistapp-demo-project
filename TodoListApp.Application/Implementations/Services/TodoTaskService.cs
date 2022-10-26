@@ -14,7 +14,7 @@ namespace TodoListApp.Application.Implementations.Services
 
         public TodoTaskService(ITodoTaskRepository todoRepository,
             IDateTimeProvider dateTimeProvider,
-            ILogger logger)
+            ILogger<TodoTaskService> logger)
         {
             _todoRepository = todoRepository;
             _dateTimeProvider = dateTimeProvider;
