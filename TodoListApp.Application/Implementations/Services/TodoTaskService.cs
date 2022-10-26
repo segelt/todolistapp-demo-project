@@ -7,13 +7,13 @@ namespace TodoListApp.Application.Implementations.Services
 {
     public class TodoTaskService : ITodoTaskService
     {
-        private readonly ITodoTaskRepository _TodoRepository;
-        private readonly IDateTimeProvider _DateTimeProvider;
+        private readonly ITodoTaskRepository _todoRepository;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
         public TodoTaskService(ITodoTaskRepository todoRepository, IDateTimeProvider dateTimeProvider)
         {
-            _TodoRepository = todoRepository;
-            _DateTimeProvider = dateTimeProvider;
+            _todoRepository = todoRepository;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public int? CreateTodoTask(CreateTodoTaskRequest createRequest)
@@ -26,7 +26,7 @@ namespace TodoListApp.Application.Implementations.Services
 
             try
             {
-                _TodoRepository.Add(targetTask);
+                _todoRepository.Add(targetTask);
                 return targetTask.Id;
             }
             catch (Exception)
@@ -40,7 +40,7 @@ namespace TodoListApp.Application.Implementations.Services
         {
             try
             {
-                _TodoRepository.Update(editRequest.id, editRequest.Title, editRequest.DueDate, editRequest.IsCompleted);
+                _todoRepository.Update(editRequest.id, editRequest.Title, editRequest.DueDate, editRequest.IsCompleted);
                 return true;
             }
             catch (Exception)
@@ -52,14 +52,14 @@ namespace TodoListApp.Application.Implementations.Services
 
         public IEnumerable<TodoTask> GetPendingTasks()
         {
-            var currentDateTime = _DateTimeProvider.Now();
-            return _TodoRepository.GetWhere(e => e.DueDate == null || e.DueDate.Value > currentDateTime && e.Completed == false);
+            DateTime currentDateTime = _dateTimeProvider.Now();
+            return _todoRepository.GetWhere(e => e.DueDate == null || e.DueDate.Value > currentDateTime && e.Completed == false);
         }
 
         public IEnumerable<TodoTask> GetOverdueTasks()
         {
-            var currentDateTime = _DateTimeProvider.Now();
-            return _TodoRepository.GetWhere(e => e.DueDate < currentDateTime && e.Completed == false);
+            DateTime currentDateTime = _dateTimeProvider.Now();
+            return _todoRepository.GetWhere(e => e.DueDate < currentDateTime && e.Completed == false);
         }
 
     }

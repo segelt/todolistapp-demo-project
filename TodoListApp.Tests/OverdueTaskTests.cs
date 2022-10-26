@@ -11,9 +11,9 @@ namespace TodoListApp.Tests
     [TestClass]
     public class OverdueTaskTests
     {
-        private IDateTimeProvider _DateTimeProviderMock;
-        private readonly DateTime _PastDate = new DateTime(2022, 10, 24, 0, 0, 0);
-        private readonly DateTime _FutureDate = new DateTime(2022, 10, 26, 0, 0, 0);
+        private IDateTimeProvider _dateTimeProviderMock;
+        private readonly DateTime _pastDate = new DateTime(2022, 10, 24, 0, 0, 0);
+        private readonly DateTime _futureDate = new DateTime(2022, 10, 26, 0, 0, 0);
 
 
         [TestInitialize]
@@ -23,7 +23,7 @@ namespace TodoListApp.Tests
             DateTime currentDate = new DateTime(2022, 10, 25, 0, 0, 0);
             mockDateTimeProvider.Setup(p => p.Now()).Returns(currentDate);
 
-            _DateTimeProviderMock = mockDateTimeProvider.Object;
+            _dateTimeProviderMock = mockDateTimeProvider.Object;
         }
 
         [TestMethod]
@@ -36,28 +36,28 @@ namespace TodoListApp.Tests
                 {
                     Id = 1,
                     Title = "Test TodoTask - 1",
-                    DueDate = _PastDate,
+                    DueDate = _pastDate,
                     Completed = false
                 },
                 new TodoTask
                 {
                     Id = 2,
                     Title = "Test TodoTask - 2",
-                    DueDate = _FutureDate,
+                    DueDate = _futureDate,
                     Completed = false
                 },
                 new TodoTask
                 {
                     Id = 3,
                     Title = "Test TodoTask - 3",
-                    DueDate = _PastDate,
+                    DueDate = _pastDate,
                     Completed = false
                 },
                 new TodoTask
                 {
                     Id = 4,
                     Title = "Test TodoTask - 4",
-                    DueDate = _FutureDate,
+                    DueDate = _futureDate,
                     Completed = false
                 },
             }.AsQueryable();
@@ -72,7 +72,7 @@ namespace TodoListApp.Tests
             mockContext.Setup(m => m.TodoTasks).Returns(mockSet.Object);
 
             var repo = new TodoTaskRepository(mockContext.Object);
-            var _sut = new TodoTaskService(repo, _DateTimeProviderMock);
+            var _sut = new TodoTaskService(repo, _dateTimeProviderMock);
 
             // Act
             var blogs = _sut.GetOverdueTasks();
@@ -93,7 +93,7 @@ namespace TodoListApp.Tests
                 {
                     Id = 1,
                     Title = "Test TodoTask - 1",
-                    DueDate = _PastDate,
+                    DueDate = _pastDate,
                     Completed = false
                 },
                 new TodoTask
@@ -129,7 +129,7 @@ namespace TodoListApp.Tests
             mockContext.Setup(m => m.TodoTasks).Returns(mockSet.Object);
 
             var repo = new TodoTaskRepository(mockContext.Object);
-            var _sut = new TodoTaskService(repo, _DateTimeProviderMock);
+            var _sut = new TodoTaskService(repo, _dateTimeProviderMock);
 
             // Act
             var blogs = _sut.GetOverdueTasks();
@@ -150,28 +150,28 @@ namespace TodoListApp.Tests
                 {
                     Id = 1,
                     Title = "Test TodoTask - 1",
-                    DueDate = _PastDate,
+                    DueDate = _pastDate,
                     Completed = true
                 },
                 new TodoTask
                 {
                     Id = 2,
                     Title = "Test TodoTask - 2",
-                    DueDate = _PastDate,
+                    DueDate = _pastDate,
                     Completed = false
                 },
                 new TodoTask
                 {
                     Id = 3,
                     Title = "Test TodoTask - 3",
-                    DueDate = _PastDate,
+                    DueDate = _pastDate,
                     Completed = false
                 },
                 new TodoTask
                 {
                     Id = 4,
                     Title = "Test TodoTask - 4",
-                    DueDate = _PastDate,
+                    DueDate = _pastDate,
                     Completed = true
                 },
             }.AsQueryable();
@@ -186,7 +186,7 @@ namespace TodoListApp.Tests
             mockContext.Setup(m => m.TodoTasks).Returns(mockSet.Object);
 
             var repo = new TodoTaskRepository(mockContext.Object);
-            var _sut = new TodoTaskService(repo, _DateTimeProviderMock);
+            var _sut = new TodoTaskService(repo, _dateTimeProviderMock);
 
             // Act
             var blogs = _sut.GetOverdueTasks();
