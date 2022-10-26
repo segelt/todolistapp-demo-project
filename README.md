@@ -46,12 +46,15 @@ Visual Studio. This requires the .NET 6 runtime, which is supported by Visual St
 
     cd to root of the project\
     docker compose up -d --build\
-    Navigate to localhost:80 from any browser
+    Navigate to http://localhost:4500/swagger/index.html from any browser
+
+    Docker compose maps the container port 80 to port 4500.
 
 - Deployment using visual studio:
 
-    The application can be built and executed using Visual Studio. A PostgreSql instance needs to be running on the host machine.
+    The application can be built and executed using Visual Studio. There is a build configuration *ToDoListApp* that can be run. A PostgreSql instance needs to be running on the host machine.
     A valid connection string should be passed either by setting the "**Conn_Str**" environment variable, or by supplying the connection string on AppSettings file, by setting the **ConnectionStrings.TodoAppDb** key.
+    The application can be reached from: http://localhost:5179/swagger/index.html
 
 Database migrations are executed at the startup of the application.
 
@@ -60,3 +63,4 @@ Database migrations are executed at the startup of the application.
 
 - Using a better logging provider
 - Exception handling middleware
+- https support

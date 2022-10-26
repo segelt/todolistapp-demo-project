@@ -31,6 +31,11 @@ if (app.Environment.IsDevelopment())
 
 #region Endpoints
 
+app.Map("/", () =>
+{
+    return Results.Redirect("/swagger");
+});
+
 app.MapPost("/create-task", (ITodoTaskService taskService, CreateTaskRequest req) =>
 {
     CreateTodoTaskRequest createRequest = new CreateTodoTaskRequest
