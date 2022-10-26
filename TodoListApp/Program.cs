@@ -29,6 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+#region Endpoints
+
 app.MapPost("/create-task", (ITodoTaskService taskService, CreateTaskRequest req) =>
 {
     CreateTodoTaskRequest createRequest = new CreateTodoTaskRequest
@@ -90,6 +92,8 @@ app.MapGet("/overdue-tasks", (ITodoTaskService taskService) =>
 
     return Results.Ok(todoTasks.ToList());
 });
+
+#endregion
 
 app.Logger.LogInformation("App started...");
 // Database handling..
