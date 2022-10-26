@@ -81,6 +81,7 @@ app.MapPost("/update-task", (ITodoTaskService taskService, EditTaskRequest editR
 
 app.MapGet("/pending-tasks", (ITodoTaskService taskService) =>
 {
+    // TODO: Error handling middleware to log all exceptions thrown on this endpoint
     var todoTasks = taskService.GetPendingTasks();
 
     return Results.Ok(todoTasks.ToList());
@@ -88,6 +89,7 @@ app.MapGet("/pending-tasks", (ITodoTaskService taskService) =>
 
 app.MapGet("/overdue-tasks", (ITodoTaskService taskService) =>
 {
+    // TODO: Error handling middleware to log all exceptions thrown on this endpoint
     var todoTasks = taskService.GetOverdueTasks();
 
     return Results.Ok(todoTasks.ToList());

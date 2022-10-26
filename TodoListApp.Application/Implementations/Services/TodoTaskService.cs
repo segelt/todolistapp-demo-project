@@ -1,4 +1,5 @@
-﻿using TodoListApp.Application.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using TodoListApp.Application.Abstractions;
 using TodoListApp.Application.Abstractions.Repo;
 using TodoListApp.Application.Abstractions.Services;
 using TodoListApp.Domain;
@@ -9,11 +10,15 @@ namespace TodoListApp.Application.Implementations.Services
     {
         private readonly ITodoTaskRepository _todoRepository;
         private readonly IDateTimeProvider _dateTimeProvider;
+        private readonly ILogger _logger;
 
-        public TodoTaskService(ITodoTaskRepository todoRepository, IDateTimeProvider dateTimeProvider)
+        public TodoTaskService(ITodoTaskRepository todoRepository,
+            IDateTimeProvider dateTimeProvider,
+            ILogger logger)
         {
             _todoRepository = todoRepository;
             _dateTimeProvider = dateTimeProvider;
+            _logger = logger;
         }
 
         public int? CreateTodoTask(CreateTodoTaskRequest createRequest)
@@ -29,9 +34,9 @@ namespace TodoListApp.Application.Implementations.Services
                 _todoRepository.Add(targetTask);
                 return targetTask.Id;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO: Log the exception
+                _logger.LogError(ex, "TodoTaskService.CreateTodoTask");
                 return null;
             }
         }
@@ -43,9 +48,9 @@ namespace TodoListApp.Application.Implementations.Services
                 _todoRepository.Update(editRequest.id, editRequest.Title, editRequest.DueDate, editRequest.IsCompleted);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // TODO: Log the exception
+                _logger.LogError(ex, "TodoTaskService.EditTask");
                 return false;
             }
         }
