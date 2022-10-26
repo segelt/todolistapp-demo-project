@@ -9,6 +9,8 @@ namespace TodoListApp.Application.Implementations.Services
     public class TodoTaskService : ITodoTaskService
     {
         private readonly ITodoTaskRepository _todoRepository;
+
+        // Provider that retrieves the current DateTime is injected, to allow for unit testing.
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly ILogger _logger;
 

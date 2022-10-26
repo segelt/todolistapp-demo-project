@@ -3,6 +3,9 @@ using TodoListApp.Domain;
 
 namespace TodoListApp.Application.Abstractions.Repo
 {
+    /// <summary>
+    /// Contract for the task repository
+    /// </summary>
     public interface ITodoTaskRepository
     {
         IEnumerable<TodoTask> Get();

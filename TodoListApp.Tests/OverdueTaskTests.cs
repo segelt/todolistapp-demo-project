@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using TodoListApp.Application.Abstractions;
 using TodoListApp.Application.Implementations.Services;
@@ -8,10 +9,14 @@ using TodoListApp.Infrastructure.Data.Repo;
 
 namespace TodoListApp.Tests
 {
+    /// <summary>
+    /// Contains unit tests for OverdueTask logic
+    /// </summary>
     [TestClass]
     public class OverdueTaskTests
     {
         private IDateTimeProvider _dateTimeProviderMock;
+        private ILogger<TodoTaskService> _loggerMock;
         private readonly DateTime _pastDate = new DateTime(2022, 10, 24, 0, 0, 0);
         private readonly DateTime _futureDate = new DateTime(2022, 10, 26, 0, 0, 0);
 
@@ -24,6 +29,10 @@ namespace TodoListApp.Tests
             mockDateTimeProvider.Setup(p => p.Now()).Returns(currentDate);
 
             _dateTimeProviderMock = mockDateTimeProvider.Object;
+
+            var loggerMock = new Mock<ILogger<TodoTaskService>>();
+            _loggerMock = loggerMock.Object;
+
         }
 
         [TestMethod]
@@ -72,7 +81,7 @@ namespace TodoListApp.Tests
             mockContext.Setup(m => m.TodoTasks).Returns(mockSet.Object);
 
             var repo = new TodoTaskRepository(mockContext.Object);
-            var _sut = new TodoTaskService(repo, _dateTimeProviderMock);
+            var _sut = new TodoTaskService(repo, _dateTimeProviderMock, _loggerMock);
 
             // Act
             var blogs = _sut.GetOverdueTasks();
@@ -129,7 +138,7 @@ namespace TodoListApp.Tests
             mockContext.Setup(m => m.TodoTasks).Returns(mockSet.Object);
 
             var repo = new TodoTaskRepository(mockContext.Object);
-            var _sut = new TodoTaskService(repo, _dateTimeProviderMock);
+            var _sut = new TodoTaskService(repo, _dateTimeProviderMock, _loggerMock);
 
             // Act
             var blogs = _sut.GetOverdueTasks();
@@ -186,7 +195,7 @@ namespace TodoListApp.Tests
             mockContext.Setup(m => m.TodoTasks).Returns(mockSet.Object);
 
             var repo = new TodoTaskRepository(mockContext.Object);
-            var _sut = new TodoTaskService(repo, _dateTimeProviderMock);
+            var _sut = new TodoTaskService(repo, _dateTimeProviderMock, _loggerMock);
 
             // Act
             var blogs = _sut.GetOverdueTasks();

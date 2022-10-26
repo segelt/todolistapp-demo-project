@@ -4,6 +4,10 @@ using TodoListApp.Domain;
 
 namespace TodoListApp.Infrastructure.Data.Repo
 {
+    /// <summary>
+    /// Repository layer that interacts with the database. <see cref="AppDbContext"/> is injected
+    /// to allow for unit testing of the repository. During tests, the DbContext is mocked.
+    /// </summary>
     public class TodoTaskRepository : ITodoTaskRepository
     {
         private readonly AppDbContext _dbContext;

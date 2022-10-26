@@ -16,6 +16,10 @@ namespace TodoListApp.ApiModels
         [JsonPropertyName("isCompleted")]
         public bool? IsCompleted { get; set; }
 
+        /// <summary>
+        /// Returns whether the user input is valid.
+        /// User must provide at least a title or a due date or an isCompleted value to start the update operation.
+        /// </summary>
         public bool IsValid
         {
             get
