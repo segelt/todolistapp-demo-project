@@ -1,16 +1,19 @@
-﻿using TodoListApp.Application.Abstractions.Repo;
+﻿using TodoListApp.Application.Abstractions;
+using TodoListApp.Application.Abstractions.Repo;
 using TodoListApp.Application.Abstractions.Services;
 using TodoListApp.Domain;
 
-namespace TodoListApp.Application.Services
+namespace TodoListApp.Application.Implementations.Services
 {
     public class TodoTaskService : ITodoTaskService
     {
         private readonly ITodoTaskRepository _TodoRepository;
+        private readonly IDateTimeProvider _DateTimeProvider;
 
-        public TodoTaskService(ITodoTaskRepository todoRepository)
+        public TodoTaskService(ITodoTaskRepository todoRepository, IDateTimeProvider dateTimeProvider)
         {
             _TodoRepository = todoRepository;
+            _DateTimeProvider = dateTimeProvider;
         }
 
         public int? CreateTodoTask(CreateTodoTaskRequest createRequest)
@@ -49,12 +52,14 @@ namespace TodoListApp.Application.Services
 
         public IEnumerable<TodoTask> GetPendingTasks()
         {
-            return _TodoRepository.GetWhere(e => e.DueDate > DateTime.Now && e.Completed == false);
+            var currentDateTime = _DateTimeProvider.Now();
+            return _TodoRepository.GetWhere(e => e.DueDate > currentDateTime && e.Completed == false);
         }
 
         public IEnumerable<TodoTask> GetOverdueTasks()
         {
-            return _TodoRepository.GetWhere(e => e.DueDate < DateTime.Now && e.Completed == false);
+            var currentDateTime = _DateTimeProvider.Now();
+            return _TodoRepository.GetWhere(e => e.DueDate < currentDateTime && e.Completed == false);
         }
 
     }

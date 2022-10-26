@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using TodoListApp.ApiModels;
+using TodoListApp.Application.Abstractions;
 using TodoListApp.Application.Abstractions.Repo;
 using TodoListApp.Application.Abstractions.Services;
-using TodoListApp.Application.Services;
+using TodoListApp.Application.Implementations;
+using TodoListApp.Application.Implementations.Services;
 using TodoListApp.Infrastructure;
 using TodoListApp.Infrastructure.Data;
 using TodoListApp.Infrastructure.Data.Repo;
@@ -27,6 +29,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddScoped<ITodoTaskService, TodoTaskService>();
 builder.Services.AddScoped<ITodoTaskRepository, TodoTaskRepository>();
+builder.Services.AddTransient<IDateTimeProvider, DateTimeProvider>();
 
 var app = builder.Build();
 
