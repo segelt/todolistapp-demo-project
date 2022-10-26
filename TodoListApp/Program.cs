@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddHttpContextAccessor();
 
 var connectionString = Environment.GetEnvironmentVariable("Conn_Str");
-if(connectionString == null)
+if (connectionString == null)
 {
     connectionString = builder.Configuration.GetConnectionString("TodoAppDb");
 }

@@ -40,7 +40,7 @@ namespace TodoListApp.Infrastructure.Data.Repo
         {
             TodoTask? targetTask = _dbContext.TodoTasks.FirstOrDefault(e => e.Id == id);
 
-            if(targetTask == null)
+            if (targetTask == null)
             {
                 throw new ArgumentException($"Target task not found for id: {id}.");
             }
@@ -58,16 +58,16 @@ namespace TodoListApp.Infrastructure.Data.Repo
                 throw new ArgumentException($"Target task not found for id: {id}.");
             }
 
-            if(title != null)
+            if (title != null)
             {
                 targetTask.Title = title;
             }
-            if(dueDate != null)
+            if (dueDate != null)
             {
                 targetTask.DueDate = dueDate;
             }
 
-            if(isCompleted.HasValue)
+            if (isCompleted.HasValue)
             {
                 targetTask.Completed = isCompleted.Value;
             }

@@ -43,7 +43,7 @@ namespace TodoListApp.Application.Implementations.Services
                 _TodoRepository.Update(editRequest.id, editRequest.Title, editRequest.DueDate, editRequest.IsCompleted);
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 // TODO: Log the exception
                 return false;
