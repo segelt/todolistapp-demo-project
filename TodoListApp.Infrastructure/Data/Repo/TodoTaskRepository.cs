@@ -25,32 +25,9 @@ namespace TodoListApp.Infrastructure.Data.Repo
             return entity.Id;
         }
 
-        public IEnumerable<TodoTask> Get()
-        {
-            return _dbContext.TodoTasks;
-        }
-
-        public TodoTask? GetById(int id)
-        {
-            return _dbContext.TodoTasks.FirstOrDefault(e => e.Id == id);
-        }
-
         public IEnumerable<TodoTask> GetWhere(Expression<Func<TodoTask, bool>> predicate)
         {
             return _dbContext.TodoTasks.Where(predicate);
-        }
-
-        public void Remove(int id)
-        {
-            TodoTask? targetTask = _dbContext.TodoTasks.FirstOrDefault(e => e.Id == id);
-
-            if (targetTask == null)
-            {
-                throw new ArgumentException($"Target task not found for id: {id}.");
-            }
-
-            _dbContext.TodoTasks.Remove(targetTask);
-            _dbContext.SaveChanges();
         }
 
         public void Update(int id, string? title, DateTime? dueDate, bool? isCompleted)
