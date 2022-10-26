@@ -53,7 +53,7 @@ namespace TodoListApp.Application.Implementations.Services
         public IEnumerable<TodoTask> GetPendingTasks()
         {
             var currentDateTime = _DateTimeProvider.Now();
-            return _TodoRepository.GetWhere(e => e.DueDate > currentDateTime && e.Completed == false);
+            return _TodoRepository.GetWhere(e => e.DueDate == null || e.DueDate.Value > currentDateTime && e.Completed == false);
         }
 
         public IEnumerable<TodoTask> GetOverdueTasks()
